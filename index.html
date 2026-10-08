@@ -126,6 +126,17 @@ html.sum body{background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.
 .nk-rainbow{color:#fff;border-color:#ff4d4d;animation:nkr 2.5s linear infinite}@keyframes nkr{0%{border-color:#ff4d4d;box-shadow:0 0 12px #ff4d4d}33%{border-color:#4dff88;box-shadow:0 0 12px #4dff88}66%{border-color:#6a8bff;box-shadow:0 0 12px #6a8bff}100%{border-color:#ff4d4d;box-shadow:0 0 12px #ff4d4d}}
 .nk-fire{color:#ffb347;border-color:#ff5a1f;box-shadow:0 0 14px #ff5a1fa0}
 .nk-neon{color:#fff;border-color:#c26bff;text-shadow:0 0 8px #c26bff;box-shadow:0 0 14px #c26bffaa}
+html.ny{--bg:#07142e;--p:#0f2250;--p2:#173070;--line:#3b5ca0;--blue:#e63946}
+html.ny body{background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='170' height='170'><text x='14' y='48' font-size='30' opacity='.18'>❄️</text><text x='100' y='106' font-size='26' opacity='.16'>🎄</text><text x='28' y='150' font-size='24' opacity='.14'>🎁</text></svg>"),radial-gradient(800px 480px at 50% -8%,#e6394666,transparent 62%),radial-gradient(700px 520px at 105% 45%,#2fbf7166,transparent 60%),radial-gradient(600px 420px at -5% 100%,#7bc4ff44,transparent 60%),var(--bg)}
+.card{background:linear-gradient(160deg,var(--p2),var(--p));border-radius:22px;box-shadow:0 10px 24px #0007;transition:transform .15s}
+.card:active{transform:scale(.97)}
+.card .art{background:radial-gradient(circle at 50% 72%,hsl(var(--h,30) 85% 45%/.5),transparent 70%)}
+.pr{background:linear-gradient(90deg,#ffc83d33,#ff7a1833);border:1px solid #ffc83d55;color:var(--gold)}
+.shp .list{background:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.shp .row{flex-direction:column;text-align:center;background:linear-gradient(160deg,var(--p2),var(--p));border:1px solid var(--line);border-radius:20px;padding:16px 10px;box-shadow:0 10px 22px #0006;gap:6px}
+.shp .row .e{width:76px;height:76px;font-size:42px;border-radius:50%;background:radial-gradient(circle,var(--p2),var(--p))}
+.shp .row .s{margin:6px 0 0;width:100%}
+.shp h2{background:linear-gradient(90deg,var(--gold),var(--blue));-webkit-background-clip:text;color:transparent}
 @media (prefers-reduced-motion:reduce){.chest,.box::before,.roll.spin::before{animation:none}.strip{transition-duration:.01s!important}.big,.it.win,.cf{animation:none}}
 </style>
 </head>
@@ -194,7 +205,8 @@ const MK=[];MKB.forEach(([e,n],i)=>MKT.forEach(([t,v],j)=>MK.push([e,"NFT "+n+" 
 const ADMINCODE="ROOT-GS-8559";
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const CONTACT='Нашёл баг? Напиши в канал <a href="https://t.me/channel_name557" target="_blank" rel="noopener" style="color:var(--gold)">t.me/channel_name557</a> — исправим и дадим промокод на 1000 звёзд.';
-const chestHTML=c=>{const h=c.hal?20+c.id%25:c.vip?(c.vip==="premium"?190:45):(c.id*47)%360;return `<div class="cx" style="--h:${h}"><div class="lid"></div><div class="lock"></div><div class="body"><span>${c.e}</span></div></div>`};
+const hueOf=c=>c.hal?20+c.id%25:c.vip?(c.vip==="premium"?190:45):(c.id*47)%360;
+const chestHTML=c=>{const h=hueOf(c);return `<div class="cx" style="--h:${h}"><div class="lid"></div><div class="lock"></div><div class="body"><span>${c.e}</span></div></div>`};
 const slotN=()=>Math.floor(Date.now()/1.8e6);
 const avail=c=>c.free||c.vip||c.p>=1e6||((((c.id*2654435761+slotN()*40503)>>>0)%100)<55);
 const hasN=c=>c.pr.some(x=>x[1].indexOf("NFT")===0);
@@ -202,18 +214,21 @@ const SF=c=>sfv==="all"||(sfv==="nft"&&hasN(c))||(sfv==="gift"&&!hasN(c))||(sfv=
 const qc=n=>n.indexOf(" · Радуга")>=0?"qr":n.indexOf(" · Алмаз")>=0?"qd":n.indexOf(" · Золото")>=0?"qg":n.indexOf(" · Серебро")>=0?"qs":"";
 const NFX=[["gold","Золотой ник",3000],["diamond","Алмазный ник",20000],["rainbow","Радужный ник",200000],["fire","Огненный ник",1000000],["neon","Неоновый ник",5000000]];
 const nm=(t,fx)=>NFX.some(x=>x[0]===fx)?`<span class="nkf nk-${fx}">${esc(t)}</span>`:esc(t);
-const fl=()=>{const t=q.trim().toLowerCase();const L=C.filter(c=>(!c.after||Date.now()>=c.after)&&(flt==="Все"||(flt==="Free"&&c.free)||(flt==="Хэллоуин"&&c.hal)||c.tag===flt||(flt==="VIP"&&c.vip==="vip")||(flt==="Premium"&&c.vip==="premium")||(flt==="Зима"&&c.win)||(flt==="Top"&&c.p>=1e6)||(flt==="Summer"&&c.sum))&&c.p>=pmin&&c.p<=pmax&&SF(c)&&(t?(c.n+" "+(c.tag||"")+" "+c.p+" "+c.pr.map(x=>x[1]).join(" ")).toLowerCase().indexOf(t)>=0:(["Все","Зима","Хэллоуин","New","Limited"].indexOf(flt)<0||avail(c))));if(flt==="Top")L.sort((a,b)=>b.p-a.p);return L};
+const fl=()=>{const t=q.trim().toLowerCase();const L=C.filter(c=>(!c.after||Date.now()>=c.after)&&(!c.ny||gSeen)&&(flt==="Все"||(flt==="Free"&&c.free)||(flt==="Хэллоуин"&&c.hal)||c.tag===flt||(flt==="VIP"&&c.vip==="vip")||(flt==="Premium"&&c.vip==="premium")||(flt==="Зима"&&c.win)||(flt==="Top"&&c.p>=1e6)||(flt==="Summer"&&c.sum))&&c.p>=pmin&&c.p<=pmax&&SF(c)&&(t?(c.n+" "+(c.tag||"")+" "+c.p+" "+c.pr.map(x=>x[1]).join(" ")).toLowerCase().indexOf(t)>=0:(["Все","Зима","Хэллоуин","New","Limited"].indexOf(flt)<0||avail(c))));if(flt==="Top")L.sort((a,b)=>b.p-a.p);return L};
 const pad2=n=>String(n).padStart(2,"0");
-function cdText(){const a=1.8e6-(Date.now()%1.8e6);let t="🔄 Кейсы обновятся через "+pad2(Math.floor(a/6e4))+":"+pad2(Math.floor(a%6e4/1000));const u=UPD-Date.now();if(u>0)t+="<br>🚀 До обновления игры: "+pad2(Math.floor(u/3.6e6))+":"+pad2(Math.floor(u%3.6e6/6e4))+":"+pad2(Math.floor(u%6e4/1000));if(!theme&&halAt>Date.now())t+="<br>🎃 Хэллоуинское обновление через 0:"+pad2(Math.ceil((halAt-Date.now())/1000));t+="<br>📣 Скоро в 13:00 в канале выйдет промокод на ⭐ 1 000 000";return t}
+function cdText(){const a=1.8e6-(Date.now()%1.8e6);let t="🔄 Кейсы обновятся через "+pad2(Math.floor(a/6e4))+":"+pad2(Math.floor(a%6e4/1000));const u=UPD-Date.now();if(u>0)t+="<br>🚀 До обновления игры: "+pad2(Math.floor(u/3.6e6))+":"+pad2(Math.floor(u%3.6e6/6e4))+":"+pad2(Math.floor(u%6e4/1000));if(!theme&&halAt>Date.now())t+="<br>🎃 Хэллоуинское обновление через 0:"+pad2(Math.ceil((halAt-Date.now())/1000));if(UPD<=Date.now()&&!gSeen&&gAt&&gAt+9e5>Date.now()){const z=gAt+9e5-Date.now();t+="<br>🎮 Игровое обновление через "+pad2(Math.floor(z/6e4))+":"+pad2(Math.floor(z%6e4/1000))}
+ t+="<br>📣 Скоро в 13:00 в канале выйдет промокод на ⭐ 1 000 000";return t}
 function promoWin(k,a){sfx("promo");const o=modal(`<div class="coupon"><div style="font-size:12px;letter-spacing:3px;color:var(--mut)">ПРОМОКОД АКТИВИРОВАН</div><div style="font-size:26px;font-weight:800;letter-spacing:4px;margin:8px 0">${esc(k)}</div><div style="font-size:56px;line-height:1.2">⭐</div><div id="pa" style="font-size:34px;font-weight:800;color:var(--gold)">+0</div></div><button class="go" id="k">Забрать награду</button>`);
  let n=0;const st=Math.max(1,Math.ceil(a/40)),iv=setInterval(()=>{n=Math.min(a,n+st);o.querySelector("#pa").textContent="+"+n.toLocaleString("ru");if(n>=a)clearInterval(iv)},30);
  o.querySelector("#k").onclick=()=>{clearInterval(iv);sfx("claim");o.remove()};rain()}
+let dimOn=false;
 function dimThen(label,apply,after){
+ dimOn=true;
  const d=document.createElement("div");d.style.cssText="position:fixed;top:0;left:0;right:0;bottom:0;background:#000;opacity:0;transition:opacity 1.2s;z-index:50;display:grid;place-items:center;color:#ff7a18;font:700 28px system-ui,sans-serif;text-align:center";document.body.appendChild(d);
  setTimeout(()=>{d.style.opacity=1},30);
  setTimeout(()=>{apply();draw();d.innerHTML=label;sfx("open")},1400);
  setTimeout(()=>{d.style.opacity=0},3400);
- setTimeout(()=>{d.remove();sfx("jackpot");after()},4700);
+ setTimeout(()=>{d.remove();sfx("jackpot");after();dimOn=false},4700);
 }
 function runHalUpdate(){
  halAt=0;
@@ -224,7 +239,9 @@ function runHalUpdate(){
   o.querySelector("#k").onclick=()=>{o.remove();flt="Хэллоуин";view="promo";draw()}});
 }
 function fireworks(){if(!fxOn)return;const cols=["#ffc83d","#ff6fa8","#7be3ff","#7bff9a","#ff7a18","#a45cff"];for(let b=0;b<8;b++)setTimeout(()=>{const x=10+Math.random()*80,y=15+Math.random()*45;for(let i=0;i<24;i++){const a=i/24*6.283,r=60+Math.random()*90,d=document.createElement("i");d.className="fw";d.style.cssText="left:"+x+"%;top:"+y+"%;background:"+cols[(b+i)%6]+";--x:"+Math.cos(a)*r+"px;--y:"+Math.sin(a)*r+"px";document.body.appendChild(d);setTimeout(()=>d.remove(),1200)}sfx("epic")},b*450)}
+let updRun=false;
 function runSumUpdate(){
+ if(updRun)return;updRun=true;updSeen=true;save();
  fireworks();
  setTimeout(()=>dimThen('☀️<div style="font-size:20px;margin-top:10px">Здравствуйте все!<br>Это Летнее обновление,<br>которое уже вышло</div><div style="font-size:14px;margin-top:10px;color:#fff8">t.me/channel_name557</div>',()=>{updSeen=true;theme="sum";save();fireworks()},()=>{
   sumT=Date.now();save();
@@ -232,15 +249,25 @@ function runSumUpdate(){
   const iv=setInterval(()=>{const l=sumT+12e4-Date.now(),m=o.querySelector("#mct");if(m)m.textContent=l>0?"Осталось "+Math.floor(l/6e4)+":"+pad2(Math.ceil(l/1000)%60):"Промокод 12345 больше не действует";if(l<=0)clearInterval(iv)},500);
   o.querySelector("#k").onclick=()=>{o.remove();flt="Summer";view="home";draw()}}),2800);
 }
+let gRun=false;
+function runGameUpdate(){
+ if(gRun||gSeen)return;gRun=true;gSeen=true;save();
+ fireworks();
+ setTimeout(()=>dimThen('🎮<div style="font-size:20px;margin-top:10px">Здравствуйте все!<br>Это Игровое обновление,<br>которое уже вышло</div><div style="font-size:14px;margin-top:10px;color:#fff8">t.me/channel_name557</div>',()=>{fireworks()},()=>{
+  gT=Date.now();codes["12345"]=1e8;delete used["12345"];save();
+  const o=modal(`<div class="big">🎮</div><h2 style="margin:6px 0">Что нового в Игровом обновлении</h2><div style="text-align:left;font-size:15px;line-height:1.7">⚽ 3D-игра «Пенальти»: за каждый гол ⭐ 3 000<br>🏃 3D-бегун: монеты и дистанция дают звёзды<br>👥 Результаты друзей в играх (онлайн-версия)<br>📋 50 заданий: от ⭐ 10 000 до ⭐ 100 000 000<br>🎵 Новые звуки и фейерверки</div><p style="margin-top:12px">Промокод <b>12345</b> даёт ⭐ 100 000 000. Действует 10 минут.</p><p id="mct" style="font-weight:700;color:var(--gold);font-size:20px"></p><button class="go" id="k">ОК</button>`);
+  const iv=setInterval(()=>{const l=gT+6e5-Date.now(),m=o.querySelector("#mct");if(m)m.textContent=l>0?"Осталось "+Math.floor(l/6e4)+":"+pad2(Math.ceil(l/1000)%60):"Промокод 12345 больше не действует";if(l<=0)clearInterval(iv)},500);
+  o.querySelector("#k").onclick=()=>{o.remove();view="games";draw()}}),2800);
+}
 function showUpd(){runSumUpdate()}
 function showUpdOld(){updSeen=true;save();sfx("jackpot");const o=modal(`<div class="big">🎉</div><h2 style="margin:6px 0">Поздравляем! Вышло новое обновление</h2><p>Новый кейс «Релиз · Обновление» уже в списке. Промокод <b>UPDATE2M</b> даёт ⭐ 2 000 000 — введи его во вкладке «Промокод».</p><button class="go" id="k">Круто</button>`);o.querySelector("#k").onclick=()=>{o.remove();flt="Все";view="home";draw()}}
 const viewHTML=()=>viewers.length?`<h2>Гости профиля</h2><div class="list">${viewers.slice(0,10).map(v=>`<div class="row"><div class="e">👀</div><div><b>${esc(v.n)}</b>${esc(v.u)}</div></div>`).join("")}</div>`:"";
 const byId=i=>C.find(c=>c.id===i);
-let sumT=0,vol=1,fxOn=true,sfv="all",mkShown=20,mkT="All",nfx=[],nfxSel="",halAt=0,halT=0,sendAdmin=null,theme="",gcd={},tasks={},fc={d:"",n:0},updSeen=false,lastSlot=Math.floor(Date.now()/1.8e6),topCache=null,sendBoost=null,frames=[],frame="",friends=[],bst=1,bstU=0,pmin=0,pmax=1e12,q="",viewers=[],showFps=false,vipT="",vipUntil=0,country="",topC="",shown=24,snd=true,vib=true,nick="",avatar="🧑",photo="",fr={},upSel=-1,flt="Все",reports=[],uname="@"+["wolf","star","moon","fox","neo","ice"][Math.floor(Math.random()*6)]+"_"+Math.random().toString(36).slice(2,6),subd=false,nextFree=0,earned=0,TGID=0,opened=0,best=0,admin=false,used={},codes={START:25,GIFT100:100,MILLION:1000000,HALLOWEEN:50,DAILY1:30,FREE1500K:1500000,VIP25K:25000,PREMIUM100K:100000,UPDATE2M:2000000,"557":10000000,"12345":50000000},bal=100,inv=[],demo=false,fast=false,n=1,cur=null,view="home",busy=false;
+let gAt=0,gT=0,gplays=0,upw=0,gSeen=false,sumT=0,vol=1,fxOn=true,sfv="all",mkShown=20,mkT="All",nfx=[],nfxSel="",halAt=0,halT=0,sendAdmin=null,theme="",gcd={},tasks={},fc={d:"",n:0},updSeen=false,lastSlot=Math.floor(Date.now()/1.8e6),topCache=null,sendBoost=null,frames=[],frame="",friends=[],bst=1,bstU=0,pmin=0,pmax=1e12,q="",viewers=[],showFps=false,vipT="",vipUntil=0,country="",topC="",shown=24,snd=true,vib=true,nick="",avatar="🧑",photo="",fr={},upSel=-1,flt="Все",reports=[],uname="@"+["wolf","star","moon","fox","neo","ice"][Math.floor(Math.random()*6)]+"_"+Math.random().toString(36).slice(2,6),subd=false,nextFree=0,earned=0,TGID=0,opened=0,best=0,admin=false,used={},codes={START:25,GIFT100:100,MILLION:1000000,HALLOWEEN:50,DAILY1:30,FREE1500K:1500000,VIP25K:25000,PREMIUM100K:100000,UPDATE2M:2000000,"557":10000000,"12345":50000000},bal=100,inv=[],demo=false,fast=false,n=1,cur=null,view="home",busy=false;
 const $=id=>document.getElementById(id);
-try{const d=JSON.parse(localStorage.getItem("gs")||"{}");if(d.bal!=null){bal=d.bal;inv=d.inv||[];earned=d.earned||0;subd=!!d.subd;uname=d.uname||uname;nick=d.nick||"";avatar=d.avatar||avatar;photo=d.photo||"";fr=d.fr||{};fast=!!d.fast;vib=d.vib!==false;snd=d.snd!==false;vipT=d.vipT||"";vipUntil=d.vipUntil||0;country=d.country||"";showFps=!!d.showFps;sumT=d.sumT||0;vol=d.vol!=null?d.vol:1;fxOn=d.fxOn!==false;nfx=d.nfx||[];nfxSel=d.nfxSel||"";halT=d.halT||0;theme=d.theme||"";gcd=d.gcd||{};tasks=d.tasks||{};fc=d.fc||fc;updSeen=!!d.updSeen;frames=d.frames||[];frame=d.frame||"";friends=d.friends||[];bst=d.bst||1;bstU=d.bstU||0;nextFree=d.nextFree||0;opened=d.opened||0;best=d.best||0;used=d.used||{}}}catch(e){}
+try{const d=JSON.parse(localStorage.getItem("gs")||"{}");if(d.bal!=null){bal=d.bal;inv=d.inv||[];earned=d.earned||0;subd=!!d.subd;uname=d.uname||uname;nick=d.nick||"";avatar=d.avatar||avatar;photo=d.photo||"";fr=d.fr||{};fast=!!d.fast;vib=d.vib!==false;snd=d.snd!==false;vipT=d.vipT||"";vipUntil=d.vipUntil||0;country=d.country||"";showFps=!!d.showFps;gplays=d.gplays||0;upw=d.upw||0;gAt=d.gAt||0;gT=d.gT||0;gSeen=!!d.gSeen;sumT=d.sumT||0;vol=d.vol!=null?d.vol:1;fxOn=d.fxOn!==false;nfx=d.nfx||[];nfxSel=d.nfxSel||"";halT=d.halT||0;theme=d.theme||"";if(theme==="ny")theme="";gcd=d.gcd||{};tasks=d.tasks||{};fc=d.fc||fc;updSeen=!!d.updSeen;frames=d.frames||[];frame=d.frame||"";friends=d.friends||[];bst=d.bst||1;bstU=d.bstU||0;nextFree=d.nextFree||0;opened=d.opened||0;best=d.best||0;used=d.used||{}}}catch(e){}
 try{const q=new URLSearchParams(new URLSearchParams(location.hash.slice(1)).get("tgWebAppData")||"");TGID=JSON.parse(q.get("user")||"{}").id||0;if(TGID===8559152499)admin=true}catch(e){}
-const save=()=>{try{localStorage.setItem("gs",JSON.stringify({sumT,vol,fxOn,nfx,nfxSel,halT,theme,gcd,tasks,fc,updSeen,frames,frame,friends,bst,bstU,showFps,vipT,vipUntil,country,snd,nick,avatar,photo,fr,fast,vib,uname,subd,nextFree,bal,inv,earned,opened,best,used}))}catch(e){}};
+const save=()=>{try{localStorage.setItem("gs",JSON.stringify({gplays,upw,gAt,gT,gSeen,sumT,vol,fxOn,nfx,nfxSel,halT,theme,gcd,tasks,fc,updSeen,frames,frame,friends,bst,bstU,showFps,vipT,vipUntil,country,snd,nick,avatar,photo,fr,fast,vib,uname,subd,nextFree,bal,inv,earned,opened,best,used}))}catch(e){}};
 const lk=()=>Date.now()<bstU?bst:1;
 const W=(x,c)=>(x[3]!=null?x[3]:1/x[2])*(x[2]>=c.p&&c.p>0?lk():1);
 const QN=["","Серебро","Золото","Алмаз","Радуга"],QM=[1,1.1,1.25,2,10];
@@ -249,7 +276,7 @@ const roll0=c=>{const t=c.pr.reduce((a,x)=>a+W(x,c),0);let r=Math.random()*t;for
 const rar=v=>v>=1000?"r3":v>=100?"r2":v>=25?"r1":"";
 const itm=x=>`<div class="it ${rar(x[2])}"><span>${x[0]}</span><em>⭐ ${x[2]}</em></div>`;
 function head(){return `<div class="top"><div class="me">Баланс${lk()>1?` · 🍀×${lk()}`:""}</div><div class="bal">⭐ ${bal.toLocaleString("ru")}<button id="add" aria-label="Пополнить">+</button></div></div>`}
-const cardHTML=c=>`<button class="card${c.hal?" hal":""}" data-c="${c.id}"><h3>${c.n}${c.tag?`<span class="tag">${c.tag}</span>`:""}</h3>${c.lim?`<div class="bar"><i style="width:${c.lim[0]/c.lim[1]*100}%"></i><span>${c.lim[0]} / ${c.lim[1]}</span></div>`:""}<div class="art">${chestHTML(c)}</div><div class="pr">⭐ ${c.p.toLocaleString("ru")}</div></button>`;
+const cardHTML=c=>`<button class="card${c.hal?" hal":""}" data-c="${c.id}" style="--h:${hueOf(c)}"><h3>${c.n}${c.tag?`<span class="tag">${c.tag}</span>`:""}</h3>${c.lim?`<div class="bar"><i style="width:${c.lim[0]/c.lim[1]*100}%"></i><span>${c.lim[0]} / ${c.lim[1]}</span></div>`:""}<div class="art">${chestHTML(c)}</div><div class="pr">⭐ ${c.p.toLocaleString("ru")}</div></button>`;
 function fillGrid(){const L=fl();$("gd").innerHTML=L.slice(0,shown).map(cardHTML).join("")||'<div class="empty">Ничего не найдено</div>';
  document.querySelectorAll(".card").forEach(b=>b.onclick=()=>{cur=byId(+b.dataset.c);view="case";draw()});
  $("mr").innerHTML=L.length>shown?`<button class="go" id="more">Показать ещё (${L.length-shown})</button>`:"";
@@ -317,7 +344,7 @@ function promoV(){
  $("app").innerHTML=head()+`<div class="ticket"><h3>🎟️ Промокод</h3><p>Введи код из нашего канала и получи звёзды. Новые коды выходят каждый день.</p><p id="pct" style="font-weight:700"></p><div class="in"><input type="text" id="pc" placeholder="КОД" autocapitalize="characters"><button id="pb">Активировать</button></div></div><div class="res" id="pm"></div><div class="list"><div class="row"><div class="e">📅</div><div><b>Коды каждые 24 часа</b>Следи за анонсами</div></div><div class="row"><div class="e">🎁</div><div><b>Один код — одна активация</b>Каждый код работает один раз</div></div></div>`;
  $("pb").onclick=()=>{const k=$("pc").value.trim().toUpperCase();if(k===ADMINCODE){admin=true;draw();$("pm").textContent="Админ-режим включён — смотри вкладку «Админ»";return}
   if(!(k in codes)){$("pm").textContent="Такого промокода нет.";sfx("lose");return}
-  if(k==="12345"){if(!sumT){$("pm").textContent="Этот код появится после Летнего обновления";return}if(Date.now()>sumT+12e4){$("pm").textContent="Срок действия промокода 12345 истёк";sfx("lose");return}}
+  if(k==="12345"){const tt=gT||sumT,ww=gT?6e5:12e4;if(!tt){$("pm").textContent="Этот код появится после обновления";return}if(Date.now()>tt+ww){$("pm").textContent="Срок действия промокода 12345 истёк";sfx("lose");return}}
   if(k==="557"){if(theme!=="hal"||!halT){$("pm").textContent="Этот код появится после Хэллоуинского обновления";return}if(Date.now()>halT+6e4){$("pm").textContent="Срок действия промокода 557 истёк";sfx("lose");return}}
   if(k==="UPDATE2M"&&Date.now()<UPD){$("pm").textContent="Этот код пока недоступен";return}
   if(k==="VIP25K"&&!myTier()||k==="PREMIUM100K"&&myTier()!=="premium"){$("pm").textContent=k==="VIP25K"?"Этот код только для VIP и Premium.":"Этот код только для Premium.";return}
@@ -376,12 +403,18 @@ function upV(){
  const upc=()=>{const t=list[+$("ut").value];$("uc").textContent=`Шанс: ${chance(x[2],t[2]).toFixed(2)}%`};$("ut").onchange=upc;upc();
  $("ug").onclick=()=>{if(busy)return;const t=list[+$("ut").value];busy=true;$("ug").disabled=true;const b=$("ub");b.style.transition="width 2.4s linear";b.style.width="100%";
   setTimeout(()=>{const ch=chance(x[2],t[2]),win=Math.random()*100<ch;inv.splice(upSel,1);upSel=-1;busy=false;
-   if(win){const g=[t[0],t[1].startsWith("NFT")?t[1]+" #"+(1000+Math.floor(Math.random()*9000)):t[1],t[2]];inv.unshift(g);earned+=g[2];best=Math.max(best,g[2]);draw();reveal([g])}
+   if(win){const g=[t[0],t[1].startsWith("NFT")?t[1]+" #"+(1000+Math.floor(Math.random()*9000)):t[1],t[2]];inv.unshift(g);upw++;earned+=g[2];best=Math.max(best,g[2]);draw();reveal([g])}
    else{sfx("lose");draw();const o=modal(`<div class="big">🔥</div><h2>Подарок сгорел</h2><p>Шанс был ${ch.toFixed(2)}%. Попробуй ещё раз!</p><button class="go" id="x">Ок</button>`);o.querySelector("#x").onclick=()=>o.remove()}},2500)};
 }
 let sendGift=null;
-function badgeHTML(){const u=UPD-Date.now();let big,txt;if(u<=0){big="☀️";txt="Летнее обновление вышло"}else if(u<=3.6e6){big="1ч";txt="Остался 1 час до обновления"}else if(u>864e5){big=Math.ceil(u/864e5)+"д";txt="До обновления "+Math.ceil(u/864e5)+" дн."}else{big=Math.ceil(u/3.6e6)+"ч";txt="До обновления "+Math.ceil(u/3.6e6)+" ч"}
- return `<div class="ph" style="margin-bottom:10px"><div class="av" style="width:56px;height:56px;display:grid;place-items:center;font-size:22px;font-weight:800;background:linear-gradient(135deg,#ff7a18,#c2410c)">${big}</div><div><b>${txt}</b><div class="me">Летнее обновление: новые кейсы и NFT</div></div></div>`}
+function badgeHTML(){let big,txt,sub="Летнее обновление: новые кейсы и NFT";const u=UPD-Date.now(),ny=gAt?gAt+9e5-Date.now():0;
+ if(u>864e5){big=Math.ceil(u/864e5)+"д";txt="До обновления "+Math.ceil(u/864e5)+" дн."}
+ else if(u>3.6e6){big=Math.ceil(u/3.6e6)+"ч";txt="До обновления "+Math.ceil(u/3.6e6)+" ч"}
+ else if(u>0){big="1ч";txt="Остался 1 час до обновления"}
+ else if(!gSeen&&gAt&&ny>0){big=Math.floor(ny/6e4)+":"+pad2(Math.floor(ny%6e4/1000));txt="До Игрового обновления "+Math.ceil(ny/6e4)+" мин";sub="Новые игры и 50 заданий"}
+ else if(gSeen){big="🎮";txt="Игровое обновление вышло";sub="3D-игры и 50 заданий"}
+ else{big="☀️";txt="Летнее обновление вышло"}
+ return `<div class="ph" style="margin-bottom:10px"><div class="av" style="width:56px;height:56px;display:grid;place-items:center;font-size:${big.length>3?16:22}px;font-weight:800;background:linear-gradient(135deg,#ff7a18,#c2410c)">${big}</div><div><b>${txt}</b><div class="me">${sub}</div></div></div>`}
 function shopV(){shopV0();
  const mk=MK.filter(x=>mkT==="All"||x[3]===mkT),open=Date.now()>=UPD;
  $("app").insertAdjacentHTML("beforeend",`<h2>Рамки для ника</h2><div class="list">${NFX.map(f=>`<div class="row"><div class="e">✍️</div><div><b>${nm(f[1],f[0])}</b>⭐ ${f[2].toLocaleString("ru")}</div><button class="s nxb" data-f="${f[0]}" style="background:var(--blue);color:#fff">${nfx.indexOf(f[0])>=0?(nfxSel===f[0]?"Надета":"Надеть"):"Купить"}</button></div>`).join("")}</div><h2>NFT Market</h2>${open?`<select id="mkt" style="width:100%;background:var(--p);color:var(--tx);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:16px;margin-bottom:10px">${["All","Common","Rare","Epic","Mythic","Legendary"].map(t=>`<option ${t===mkT?"selected":""}>${t}</option>`).join("")}</select><div class="list">${mk.slice(0,mkShown).map((x,i)=>`<div class="row"><div class="e">${x[0]}</div><div><b>${esc(x[1])}</b>⭐ ${x[2].toLocaleString("ru")}</div><button class="s mkb" data-i="${MK.indexOf(x)}" style="background:var(--blue);color:#fff">Купить</button></div>`).join("")}</div>${mk.length>mkShown?'<button class="go" id="mkm">Показать ещё</button>':""}`:'<div class="banner">NFT Market откроется вместе с Летним обновлением.</div>'}`);
@@ -392,7 +425,7 @@ function shopV(){shopV0();
  if($("mkm"))$("mkm").onclick=()=>{mkShown+=20;const y=window.scrollY;draw();window.scrollTo(0,y)};
 }
 function shopV0(){
- $("app").innerHTML=head()+`<h2 style="margin-top:0">Shop</h2><div class="list">${FR.map(f=>`<div class="row"><div class="e">${f[4]}</div><div><b>${f[1]} рамка</b>⭐ ${f[2].toLocaleString("ru")}</div><button class="s fb" data-f="${f[0]}" style="background:var(--blue);color:#fff">${frames.indexOf(f[0])>=0?(frame===f[0]?"Надета":"Надеть"):"Купить"}</button></div>`).join("")}</div><div class="res" id="sm2"></div>`;
+ $("app").innerHTML=head()+`<h2 style="margin-top:0">Shop</h2><div class="list">${FR.filter(f=>!f[5]||gSeen).map(f=>`<div class="row"><div class="e" style="box-shadow:${f[3]}">${f[4]}</div><div><b>${f[1]} рамка</b>⭐ ${f[2].toLocaleString("ru")}</div><button class="s fb" data-f="${f[0]}" style="background:var(--blue);color:#fff">${frames.indexOf(f[0])>=0?(frame===f[0]?"Надета":"Надеть"):"Купить"}</button></div>`).join("")}</div><div class="res" id="sm2"></div>`;
  document.querySelectorAll(".fb").forEach(b=>b.onclick=()=>{const f=FR.find(x=>x[0]===b.dataset.f);
   if(frames.indexOf(f[0])>=0){frame=f[0];save();draw();return}
   if(bal<f[2]){$("sm2").textContent="Не хватает игровых звёзд";return}
@@ -400,7 +433,37 @@ function shopV0(){
   o.querySelector("#n").onclick=()=>o.remove();
   o.querySelector("#y").onclick=()=>{o.remove();if(bal<f[2])return;bal-=f[2];frames.push(f[0]);frame=f[0];save();sfx("coin");draw()}});
 }
-function gamesV(){
+let gfeed=[],shareScore=null;
+function finishGame(k,r,msg,cd){bal+=r;gcd[k]=Date.now()+cd;gplays++;save();sfx("claim");$("gm").textContent=msg+", награда ⭐ "+r.toLocaleString("ru");document.querySelector(".bal").firstChild.textContent="⭐ "+bal.toLocaleString("ru");rain();try{shareScore&&shareScore(k,msg)}catch(e){}}
+function penalty(){const box=$("gb");let shots=5,goals=0,aim=50,dir=1;
+ box.innerHTML='<div style="perspective:520px;text-align:center"><div style="position:relative;height:210px;margin:0 auto;max-width:340px;transform:rotateX(18deg);background:linear-gradient(#1c6b2f,#0f3d1b);border-radius:16px;overflow:hidden"><div style="position:absolute;left:12%;right:12%;top:14px;height:84px;border:5px solid #fff;border-bottom:0;background:repeating-linear-gradient(90deg,#ffffff22 0 6px,transparent 6px 14px),repeating-linear-gradient(0deg,#ffffff22 0 6px,transparent 6px 14px)"></div><div id="kp" style="position:absolute;top:34px;left:46%;font-size:42px;transition:left .25s">🧤</div><div id="bl" style="position:absolute;bottom:14px;left:calc(50% - 20px);font-size:38px;transition:all .45s ease-out">⚽</div><div id="am" style="position:absolute;bottom:62px;left:50%;width:4px;height:28px;background:#ffc83d"></div></div><div id="ps" style="margin:8px 0;font-weight:700">Удары: 5 · Голы: 0</div><button class="go" id="sh">Бить!</button></div>';
+ const am=$("am"),iv=setInterval(()=>{aim+=dir*3;if(aim>=95||aim<=5)dir*=-1;am.style.left=aim+"%"},30);
+ $("sh").onclick=()=>{if(!shots)return;shots--;const z=(aim<12||aim>88)?-1:aim<38?0:aim<62?1:2,kz=Math.floor(Math.random()*3);$("kp").style.left=[22,46,70][kz]+"%";
+  const bl=$("bl");bl.style.left=aim+"%";bl.style.bottom="108px";bl.style.fontSize="18px";
+  const goal=z>=0&&z!==kz;if(goal){goals++;sfx("win")}else sfx("lose");
+  $("ps").textContent="Удары: "+shots+" · Голы: "+goals+(goal?" · ГОЛ!":" · мимо");
+  setTimeout(()=>{bl.style.transition="none";bl.style.left="calc(50% - 20px)";bl.style.bottom="14px";bl.style.fontSize="38px";void bl.offsetWidth;bl.style.transition="all .45s ease-out";
+   if(!shots){clearInterval(iv);$("sh").disabled=true;finishGame("pen",goals*3000,"Голов: "+goals,18e5)}},700)}}
+function runner(){const box=$("gb");
+ box.innerHTML='<canvas id="cv" width="300" height="360" style="width:100%;max-width:340px;background:#0b0b0b;border-radius:16px;display:block;margin:0 auto"></canvas><div class="in" style="margin-top:8px"><button id="lf" style="flex:1;padding:14px">◀</button><button id="rt" style="flex:1;padding:14px">▶</button></div>';
+ const x=$("cv").getContext("2d");let lane=1,coins=0,obs=[],alive=true;const t0=Date.now();
+ const sp=setInterval(()=>obs.push({l:Math.floor(Math.random()*3),z:0,c:Math.random()<.5}),600);
+ $("lf").onclick=()=>{if(lane>0)lane--};$("rt").onclick=()=>{if(lane<2)lane++};
+ const iv=setInterval(()=>{const el=(Date.now()-t0)/1000;x.clearRect(0,0,300,360);
+  x.fillStyle="#1a1a1a";x.beginPath();x.moveTo(130,40);x.lineTo(170,40);x.lineTo(290,350);x.lineTo(10,350);x.fill();
+  x.strokeStyle="#ff7a18";for(let l=0;l<2;l++){x.beginPath();x.moveTo(143+l*14,40);x.lineTo(103+l*94,350);x.stroke()}
+  obs.forEach(o=>{o.z+=.012+el*.0002;const y=40+o.z*300,cx=150+(o.l-1)*(14+o.z*94);x.font=(8+o.z*40)+"px serif";x.textAlign="center";x.fillText(o.c?"🪙":"🎃",cx,y);
+   if(o.z>.86&&o.z<1&&o.l===lane&&!o.h){o.h=1;if(o.c){coins++;sfx("tick")}else alive=false}});
+  obs=obs.filter(o=>o.z<1.1);
+  x.font="40px serif";x.fillText("🏃",150+(lane-1)*108,345);
+  x.fillStyle="#fff";x.font="16px sans-serif";x.textAlign="left";x.fillText("🪙 "+coins+"   ⏱ "+Math.max(0,20-Math.floor(el)),10,22);
+  if(!alive||el>=20){clearInterval(iv);clearInterval(sp);finishGame("run",coins*500+(alive?3000:0),"Монет: "+coins+(alive?", дистанция пройдена":", врезался"),18e5)}},40)}
+function gamesV(){gamesV0();
+ const w=k=>Math.max(0,(gcd[k]||0)-Date.now());
+ $("app").insertAdjacentHTML("beforeend",`<h2>3D-игры</h2><div class="list"><div class="row"><div class="e">⚽</div><div><b>Пенальти</b>5 ударов, ⭐ 3 000 за гол</div><button class="s g3" data-g="pen" style="background:var(--blue);color:#fff">Играть</button></div><div class="row"><div class="e">🏃</div><div><b>Бегун</b>20 секунд, ⭐ 500 за монету</div><button class="s g3" data-g="run" style="background:var(--blue);color:#fff">Играть</button></div></div>${gfeed.length?`<h2>Друзья играли</h2><div class="list">${gfeed.map(f=>`<div class="row"><div class="e">👥</div><div><b>${esc(f.n)}</b>${esc(f.k==="pen"?"Пенальти":"Бегун")}: ${esc(f.m)}</div></div>`).join("")}</div>`:'<div class="me" style="margin-top:8px">Результаты других игроков онлайн будут появляться здесь (онлайн-версия).</div>'}`);
+ document.querySelectorAll(".g3").forEach(b=>b.onclick=()=>{const g=b.dataset.g,r=w(g);if(r>0){$("gm").textContent="Следующая попытка через "+Math.ceil(r/6e4)+" мин";return}$("gm").textContent="";if(g==="pen")penalty();else runner()});
+}
+function gamesV0(){
  const w=k=>Math.max(0,(gcd[k]||0)-Date.now());
  $("app").innerHTML=head()+`<h2 style="margin-top:0">Мини-игры</h2><div class="list"><div class="row"><div class="e">👆</div><div><b>Тапалка</b>10 секунд, ⭐ 50 за тап</div><button class="s gm" data-g="tap" style="background:var(--blue);color:#fff">Играть</button></div><div class="row"><div class="e">🧠</div><div><b>Память</b>Найди 6 пар, ⭐ 3 000</div><button class="s gm" data-g="mem" style="background:var(--blue);color:#fff">Играть</button></div></div><div id="gb" style="margin-top:14px"></div><div class="res" id="gm"></div>`;
  const pill=()=>{document.querySelector(".bal").firstChild.textContent="⭐ "+bal.toLocaleString("ru")};
@@ -414,15 +477,33 @@ function gamesV(){
     if(op.length===2){lk=true;const a=op[0],d=op[1];if(D[+a.dataset.i]===D[+d.dataset.i]){a.dataset.d=1;d.dataset.d=1;fd++;op=[];lk=false;if(fd===6){bal+=3000;gcd.mem=Date.now()+18e5;save();sfx("claim");$("gm").textContent="Все пары найдены! ⭐ 3 000";pill();rain()}}
      else setTimeout(()=>{a.firstChild.textContent="?";d.firstChild.textContent="?";op=[];lk=false},700)}})}});
 }
-const TL=[["sub","Подпишись на канал","📢",700000],["nick","Задай никнейм в настройках","✏️",5000],["open3","Открой 3 кейса","🎁",10000],["friend","Добавь друга по юзу","👥",10000],["daily","Ежедневный бонус","📅",1000]];
+const TK=[];const mk=(id,t,e,r,c,lk)=>TK.push({id,t,e,r,c,lk});
+[1,3,5,10,25,50,100,250,500,1000].forEach(n=>mk("o"+n,"Открой кейсов: "+n,"🎁",n>=1000?1e6:n>=500?1e5:1e4,()=>opened>=n));
+[[1e5,1e4],[1e6,1e4],[1e7,1e4],[1e8,1e5],[1e9,1e6],[1e10,1e7]].forEach(([n,r])=>mk("b"+n,"Накопи ⭐ "+n.toLocaleString("ru"),"💰",r,()=>bal>=n));
+[1,5,10,25,50,100].forEach(n=>mk("i"+n,"Собери подарков: "+n,"🎀",1e4,()=>inv.length>=n));
+[[1e3,1e4],[1e5,1e4],[1e7,1e4],[1e9,1e5],[1e11,1e8]].forEach(([n,r])=>mk("d"+n,"Выбей подарок от ⭐ "+n.toLocaleString("ru"),"💎",r,()=>best>=n));
+[1,3,5,10].forEach(n=>mk("f"+n,"Добавь друзей: "+n,"👥",1e4,()=>friends.length>=n));
+mk("nick","Задай никнейм","✏️",1e4,()=>nick.length>0);
+mk("photo","Добавь фото профиля","🖼",1e4,()=>!!photo);
+mk("country","Выбери страну","🌍",1e4,()=>!!country);
+mk("frame","Купи рамку аватарки","🥇",1e4,()=>frames.length>0);
+mk("nfx","Купи рамку для ника","✍️",1e4,()=>nfx.length>0);
+mk("vip","Получи VIP или Premium","👑",1e4,()=>!!myTier());
+[1,5,10,25].forEach(n=>mk("g"+n,"Сыграй в мини-игры: "+n,"🎮",1e4,()=>gplays>=n));
+[1,5,10].forEach(n=>mk("u"+n,"Выиграй апгрейдов: "+n,"⬆️",1e4,()=>upw>=n));
+[[1e5,1e4],[1e7,1e4],[1e9,1e5]].forEach(([n,r])=>mk("e"+n,"Выиграй всего ⭐ "+n.toLocaleString("ru"),"🏆",r,()=>earned>=n));
+mk("promo","Активируй промокод","🎟️",1e4,()=>Object.keys(used).length>=1);
+mk("promo5","Активируй 5 промокодов","🎟️",1e4,()=>Object.keys(used).length>=5);
+mk("sub","Подпишись на канал","📢",7e5,()=>subd,true);
 function tasksV(){
- const today=new Date().toDateString(),ok={sub:subd,nick:nick.length>0,open3:opened>=3,friend:friends.length>0,daily:true};
- const done=id=>id==="daily"?tasks.daily===today:!!tasks[id];
- $("app").innerHTML=head()+`<h2 style="margin-top:0">Задания</h2><div class="list">${TL.map(t=>`<div class="row"><div class="e">${t[2]}</div><div><b>${t[1]}</b>⭐ ${t[3].toLocaleString("ru")}</div>${done(t[0])?'<button class="s" disabled style="background:var(--p2);color:var(--mut)">Получено</button>':`<button class="s tk" data-t="${t[0]}" style="background:var(--blue);color:#fff">${t[0]==="sub"&&!subd?"Подписаться":ok[t[0]]?"Забрать":"Не выполнено"}</button>`}</div>`).join("")}</div><div class="res" id="tm"></div><div class="me">Подписка на канал подтверждается честным словом: страница не видит список подписчиков и не может заметить, что человек отписался.</div>`;
- document.querySelectorAll(".tk").forEach(b=>b.onclick=()=>{const t=TL.find(x=>x[0]===b.dataset.t);
-  if(t[0]==="sub"&&!subd){window.open("https://t.me/channel_name557","_blank");subd=true;save();$("tm").textContent="Открыл канал. Подпишись и нажми «Забрать».";draw();return}
-  if(!ok[t[0]]){$("tm").textContent="Задание ещё не выполнено";return}
-  bal+=t[3];if(t[0]==="daily")tasks.daily=today;else tasks[t[0]]=true;save();sfx("claim");draw();rain()});
+ const today=new Date().toDateString(),done=t=>!!tasks[t.id],nd=TK.filter(done).length;
+ $("app").innerHTML=head()+`<h2 style="margin-top:0">Задания · ${nd}/${TK.length}</h2><div class="list"><div class="row"><div class="e">📅</div><div><b>Ежедневный бонус</b>⭐ 1 000</div>${tasks.daily===today?'<button class="s" disabled style="background:var(--p2);color:var(--mut)">Получено</button>':'<button class="s tk" data-t="daily" style="background:var(--blue);color:#fff">Забрать</button>'}</div>${TK.map(t=>`<div class="row"><div class="e">${t.e}</div><div><b>${esc(t.t)}</b>⭐ ${t.r.toLocaleString("ru")}</div>${done(t)?'<button class="s" disabled style="background:var(--p2);color:var(--mut)">Получено</button>':`<button class="s tk" data-t="${t.id}" style="background:var(--blue);color:#fff">${t.lk&&!subd?"Подписаться":t.c()?"Забрать":"Не выполнено"}</button>`}</div>`).join("")}</div><div class="res" id="tm"></div><div class="me">Подписка на канал подтверждается честным словом: страница не видит список подписчиков.</div>`;
+ document.querySelectorAll(".tk").forEach(b=>b.onclick=()=>{const id=b.dataset.t;
+  if(id==="daily"){bal+=1000;tasks.daily=today;save();sfx("claim");draw();rain();return}
+  const t=TK.find(x=>x.id===id);
+  if(t.lk&&!subd){window.open("https://t.me/channel_name557","_blank");subd=true;save();$("tm").textContent="Открыл канал. Подпишись и нажми «Забрать».";draw();return}
+  if(!t.c()){$("tm").textContent="Задание ещё не выполнено";return}
+  bal+=t.r;tasks[t.id]=true;save();sfx("claim");draw();rain()});
 }
 let cr=null,crh=[];
 function crashV(){
@@ -499,7 +580,7 @@ function fpsOn(){let e=document.getElementById("fps");if(!showFps){if(e)e.remove
  if(!e){e=document.createElement("div");e.id="fps";e.style.cssText="position:fixed;top:calc(8px + env(safe-area-inset-top,0px));right:8px;z-index:20;background:#000a;color:#7bff9a;font:700 12px monospace;padding:4px 8px;border-radius:8px";document.body.appendChild(e)}
  if(fpsT)return;fpsT=1;let f=0,t=performance.now();const lp=n=>{if(!showFps){fpsT=0;return}f++;if(n-t>=1000){const x=document.getElementById("fps");if(x)x.textContent=Math.round(f*1000/(n-t))+" FPS";f=0;t=n}requestAnimationFrame(lp)};requestAnimationFrame(lp)}
 function draw(){
- fpsOn();document.documentElement.className=theme||"";
+ fpsOn();document.documentElement.className=theme||"";$("app").className=view==="shop"?"shp":"";
  if(view==="admin"&&!admin)view="home";
  save();
  if(view==="home")home();else if(view==="case")caseV();else if(view==="promo")promoV();else if(view==="pvp")pvpV();else if(view==="admin")adminV();else if(view==="search")searchV();else if(view==="settings")settingsV();else if(view==="up")upV();else if(view==="vip")vipV();else if(view==="top")topV();else if(view==="shop")shopV();else if(view==="crash")crashV();else if(view==="tasks")tasksV();else if(view==="games")gamesV();else prof();
@@ -520,8 +601,10 @@ $("ns").onclick=()=>{if(busy)return;view="search";draw()};
 $("np").onclick=()=>{if(busy)return;view="promo";draw()};
 $("ni").onclick=()=>{if(busy)return;view="inv";draw()};
 draw();
+if(!gAt){gAt=Date.now();save()}
+if(gT)codes["12345"]=1e8;
 if(!theme&&Date.now()<UPD){halAt=Date.now()+30000;setTimeout(function(){if(!theme&&Date.now()<UPD)runHalUpdate()},30000)}
-setInterval(function(){var e=document.getElementById("cdb");if(e)e.innerHTML=cdText();var e3=document.getElementById("bdg");if(e3)e3.innerHTML=badgeHTML();var e2=document.getElementById("pct");if(e2){var l2=halT+6e4-Date.now();e2.textContent=halT?(l2>0?"🔥 Промокод 557: осталось 0:"+pad2(Math.ceil(l2/1000)):"Промокод 557 больше не действует"):"";if(sumT){var l3=sumT+12e4-Date.now();e2.textContent=l3>0?"☀️ Промокод 12345: осталось "+Math.floor(l3/6e4)+":"+pad2(Math.ceil(l3/1000)%60):"Промокод 12345 больше не действует"}}var sl=Math.floor(Date.now()/1.8e6);if(sl!==lastSlot){lastSlot=sl;if(view==="home"&&!q&&!busy)draw()}if(Date.now()>=UPD&&!updSeen&&!busy)location.reload()},1000);
+setInterval(function(){var e=document.getElementById("cdb");if(e)e.innerHTML=cdText();var e3=document.getElementById("bdg");if(e3)e3.innerHTML=badgeHTML();var e2=document.getElementById("pct");if(e2){var l2=halT+6e4-Date.now();e2.textContent=halT?(l2>0?"🔥 Промокод 557: осталось 0:"+pad2(Math.ceil(l2/1000)):"Промокод 557 больше не действует"):"";if(sumT||gT){var tt=gT||sumT,l3=tt+(gT?6e5:12e4)-Date.now();e2.textContent=l3>0?(gT?"🎮":"☀️")+" Промокод 12345: осталось "+Math.floor(l3/6e4)+":"+pad2(Math.ceil(l3/1000)%60):"Промокод 12345 больше не действует"}}var sl=Math.floor(Date.now()/1.8e6);if(sl!==lastSlot){lastSlot=sl;if(view==="home"&&!q&&!busy)draw()}if(Date.now()>=UPD&&!updSeen&&!busy){runSumUpdate()}if(updSeen&&!gSeen&&gAt&&Date.now()>=gAt+9e5&&!busy&&!dimOn)runGameUpdate();},1000);
 if(Date.now()>=UPD&&!updSeen)setTimeout(showUpd,400);
 </script>
 </body>
